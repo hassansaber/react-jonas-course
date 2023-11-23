@@ -80,16 +80,22 @@ function Menu() {
     <h2>Our Menu</h2>
 
 
-
     {pizzasNumber > 0 ?
-      <ul className='pizzas'>
-        {pizzas.map((pizzaObj) =>
-        (<Pizza
-          key={pizzaObj.name}
-          pizzaObj={pizzaObj}
-        />)
-        )}
-      </ul>
+      <>
+        <p>
+          Authentic Italian cuisine. 6 creative dishes
+          to choose from. All from our stone oven, all
+          organic, all delicious.
+        </p>
+        <ul className='pizzas'>
+          {pizzas.map((pizzaObj) =>
+          (<Pizza
+            key={pizzaObj.name}
+            pizzaObj={pizzaObj}
+          />)
+          )}
+        </ul>
+      </>
       : <p>Sorry our menu is not ready know</p>
     }
 
@@ -101,13 +107,15 @@ function Menu() {
 function Pizza({ pizzaObj }) {
   const { soldOut, photoName, price, ingredients, name } = pizzaObj
 
+
+
   return (
-    <li className='pizza'>
+    <li className={`pizza ${soldOut && `sold-out`}`}>
       <img src={photoName} alt={name} />
       <div>
         <h3>{name}</h3>
         <p>{ingredients}</p>
-        <span>{price}</span>
+        <span>{soldOut ? 'SOLD OUT' : price}</span>
       </div>
     </li>)
 }
@@ -120,25 +128,28 @@ function Footer() {
   const closeHour = 22
   const isOpen = hour >= openHour && hour <= closeHour
 
-  if (!isOpen) return
+  if (!isOpen) return <p>We're happy to welcome you between {openHour}:00 and  {closeHour}:00. </p>
 
 
   return (
 
     <footer className='footer'>
       {isOpen ?
-        <div className="order">
-          <p>
-            we're open until {closeHour}:00. Come visit us or order online.
-          </p>
-          <button className='btn'>Order</button>
-        </div>
+        <Order closeHour={closeHour} />
         : <p>We're happy to welcome you between {openHour}:00 and  {closeHour}:00. </p>
       }
     </footer>
   )
 }
 
+function Order({ closeHour }) {
+  return <div className="order">
+    <p>
+      we're open until {closeHour}:00. Come visit us or order online.
+    </p>
+    <button className='btn'>Order</button>
+  </div>
+}
 
 
 
