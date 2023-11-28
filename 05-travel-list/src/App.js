@@ -1,67 +1,70 @@
+import { useState } from 'react'
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-  { id: 1, description: "ssPassports", quantity: 2, packed: false },
-  { id: 2, description: "vfvSocks", quantity: 7, packed: true },
-  { id: 1, description: "Pfgvdfassports", quantity: 2, packed: false },
-  { id: 2, description: "Soffcks", quantity: 1, packed: true },
-];
+import Form from "./Form";
+import Logo from "./Logo";
+import PackingList from "./PackingList";
+import Stats from "./Stats";
+
+
+// const initialItems = [
+//   { id: 1, description: "Passports", quantity: 2, packed: false },
+//   { id: 2, description: "Socks", quantity: 12, packed: false },
+//   { id: 3, description: "ssPassports", quantity: 2, packed: false },
+//   { id: 4, description: "vfvSocks", quantity: 7, packed: true },
+//   { id: 5, description: "Pfgvdfassports", quantity: 2, packed: false },
+//   { id: 6, description: "Soffcks", quantity: 1, packed: true },
+// ];
 
 
 
 function App() {
+  // _______State________
+  const [items, setItems] = useState([])
+
+  // _______Handler________
+  function handleAddItem(item) {
+    setItems(items => [...items, item])
+  }
+  function handleDeleteItem(id) {
+    setItems(items => items.filter(i => i.id !== id))
+  }
+  function handleToggleItem(id) {
+    setItems(items => items.map(i => id === i.id ?
+      { ...i, packed: !i.packed } : i))
+  }
+  function handleClearList() {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all of the items?"
+    )
+
+    if (confirmed) setItems([])
+  }
+
+
+
+  // _______JSX________
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
-      <Stats />
-
+      <Form onAddItem={handleAddItem} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onToggleItem={handleToggleItem}
+        onClearList={handleClearList} />
+      <Stats items={items} />
     </div>
   );
 }
 export default App;
 
-function Logo() {
-  return (
-    <h1>🌴 Far Away 💼</h1>
-  )
-}
 
-function Form() {
-  return (<div className="add-form">
-    <h3>What do you need for your 😍 trip?</h3>
-  </div>)
-}
 
-function PackingList() {
-  return (
-    <div className="list">
-      <ul>
-        {initialItems.map(({ packed, description, quantity }) => (
-          <Item packed={packed} description={description} quantity={quantity} />
-        ))}
-      </ul>
-    </div>
-  )
-}
 
-function Item({ packed, description, quantity }) {
-  return <li>
-    <span style={packed
-      ? { textDecoration: "line-through" }
-      : {}}>
-      {quantity} {description}
-    </span>
-    <button>❌</button>
-  </li>
-}
 
-function Stats() {
-  return (
-    <footer className="stats">
-      <em>💼 you have X items on your list, and you already packed X (X%)</em>
-    </footer>
-  )
-}
+
+
+
+
+
+
