@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Counter from "../../04-challenge/src/Counter";
+
 
 const messages = [
   "Learn React ⚛️",
@@ -47,15 +47,56 @@ function Steps() {
             <div className={step >= 2 ? 'active' : ""}>2</div>
             <div className={step >= 3 ? 'active' : ""}> 3</div >
           </div >
-          <div className="message">Step {step} :{messages[step - 1]}</div>
-          <div className="buttons">
-            <button onClick={handlePrevious} style={{ backgroundColor: "#7950f2", color: "#fff" }} >Previous</button>
-            <button onClick={handleNext} style={{ backgroundColor: "#7950f2", color: "#fff" }} >Next</button>
+          <StepMessage step={step}>
+            <h3>{messages[step - 1]}</h3>
+            <div className="buttons">
+              <Button bgColor="#999" color="#fff" onClick={() => {
+                alert(`
+              learn how to ${messages[step - 1]}
+              `)
+              }} >
+                Learn How
+              </Button>
+            </div>
+          </StepMessage>
 
+          <div className="buttons">
+            <Button
+              onClick={handlePrevious}
+              bgColor="#7950f2"
+              color='#fff'
+            >Previous <span>👈</span></Button >
+            <Button
+              onClick={handleNext}
+              bgColor="#7950f2"
+              color='#fff'
+            > <span>👉</span>Next</Button >
           </div>
         </div >}
-    </div>
+    </div >
   );
+}
+
+function StepMessage({ step, children }) {
+  return (
+    <div className="message">
+      Step {step} :{children}
+    </div>
+  )
+}
+
+function Button({ onClick, bgColor, color, children }) {
+  return (
+
+    <button
+      onClick={onClick}
+      style={{
+        backgroundColor: bgColor,
+        color: color
+      }} >
+      {children}</button>
+  )
+
 }
 
 export default App;

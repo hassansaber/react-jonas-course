@@ -64,8 +64,7 @@ function FlashCards() {
         <p>{selectedId === q.id ? q.answer : q.question}</p>
       </div>
 
-    )
-    }
+    )}
   </div >;
 }
 

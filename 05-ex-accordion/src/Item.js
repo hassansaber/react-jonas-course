@@ -1,25 +1,30 @@
-import { useState } from 'react'
 
-const Item = ({ faq, i }) => {
 
-  const [isOpen, setIsOpen] = useState(false)
+const Item = ({ faq, num, currOpen, onOpen }) => {
 
-  function handleClick() {
-    setIsOpen(iO => !iO)
+  // ___________STATE______________
+  const isOpen = num === currOpen
+
+  // ___________HANDLER______________
+  function handleToggle() {
+    onOpen(isOpen ? "null" : num)
   }
 
+  // ___________JSX______________
   return (
-    <div className={`${isOpen ? "item open" : "item"}`} onClick={handleClick} >
-      <div className="number">
-        {i + 1}
-      </div>
-      <div className="title">
+    <div
+      className={`item ${isOpen ? "open" : ""}`}
+      onClick={handleToggle} >
+      <p className="number">
+        {num < 9 ? `0${num + 1}` : num + 1}
+      </p>
+      <p className="title">
         {faq.title}
-      </div>
-      <div className="icon">
+      </p>
+      <p className="icon">
         {isOpen ? '-' : '+'}
-      </div>
-      {isOpen ? <div className="content-box"><ul>{faq.text}</ul>  </div> : null}
+      </p>
+      {isOpen && <div className="content-box"><ul>{faq.text}</ul>  </div>}
     </div>
   )
 }
