@@ -1,8 +1,5 @@
-import { useState } from "react";
+const Search = ({ query, setQuery }) => {
 
-const Search = () => {
-
-  const [query, setQuery] = useState("");
 
 
   return (

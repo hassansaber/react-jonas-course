@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import "./index.css"
+import "./index.css"
 // import App from './App';
-import StarRating from './StarRating';
+// import StarRating from './StarRating';
+import CurrencyConverter from './challange/CurrencyConverter';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <StarRating
+    {/* <StarRating
       maxRating={5}
       messages={["S", "A", "P", "W", "T"]} />
     <StarRating
       maxRating={10} />
-    <StarRating />
-
+    <StarRating /> */}
+    <CurrencyConverter />
   </React.StrictMode>
 );
 

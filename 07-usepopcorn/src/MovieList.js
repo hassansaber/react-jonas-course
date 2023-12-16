@@ -1,11 +1,15 @@
 import Movie from "./Movie"
 
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, onSelectMovie, selectedMovie }) => {
   return (
-    <ul className="list">
+    <ul className="list list-movies">
       {movies?.map((movie) => (
-        <Movie movie={movie} />
+        <Movie
+          movie={movie}
+          key={movie.imdbID}
+          onSelectMovie={onSelectMovie}
+          selectedMovie={selectedMovie} />
       ))}
     </ul>
   )
