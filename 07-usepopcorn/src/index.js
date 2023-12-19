@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import "./index.css"
+import GeoLocate from './GeoLocate';
 // import App from './App';
 // import StarRating from './StarRating';
-import CurrencyConverter from './challange/CurrencyConverter';
+// import CurrencyConverter from './challange/CurrencyConverter';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +17,8 @@ root.render(
     <StarRating
       maxRating={10} />
     <StarRating /> */}
-    <CurrencyConverter />
+    {/* <CurrencyConverter /> */}
+    <GeoLocate />
   </React.StrictMode>
 );
 

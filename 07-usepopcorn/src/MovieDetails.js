@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import StarRating from "./StarRating"
 import Loader from "./Loader"
 import ErrorMessage from "./ErrorMessage"
+import { useKey } from "./useKey"
 
 const KEY = 'a55d4b56'
 
@@ -17,6 +18,7 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
   const isWatched = watched.map(movie => movie.imdbID).includes(selectedId)
   const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating
 
+  const countRef = useRef(0)
 
   const { Title: title,
     Released: released,
@@ -44,8 +46,8 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
       poster,
       runtime: Number(runtime.split(" ").at(0)),
       imdbRating: Number(imdbRating),
-      userRating
-
+      userRating,
+      countRatingDecision: countRef.current
     }
 
     onAddWatched(newWatchedMovie)
@@ -62,6 +64,10 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
 
 
   // ________________Effect___________________
+
+  useEffect(function () {
+    if (userRating) countRef.current++
+  }, [userRating])
 
   useEffect(function () {
     async function getMovieDetails() {
@@ -91,6 +97,8 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
     getMovieDetails()
   }, [selectedId])
 
+
+
   useEffect(function () {
     if (!title) return
     document.title = `Movie | ${title}`
@@ -99,27 +107,7 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
   }, [title])
 
 
-
-  useEffect(function () {
-
-    function callback(e) {
-      if (e.code === "Escape") {
-        onCloseMovie()
-      }
-    }
-
-    document.addEventListener("keydown", callback)
-
-    return function () {
-      document.removeEventListener("keydown", callback)
-    }
-  }, [onCloseMovie])
-
-
-
-
-
-
+  useKey("Escape", onCloseMovie)
 
 
   // ____________JSX_______________
