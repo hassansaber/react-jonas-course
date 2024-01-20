@@ -3,7 +3,7 @@
 const Item = ({ faq, num, currOpen, onOpen }) => {
 
   // ___________STATE______________
-  const isOpen = num === currOpen
+  const isOpen = num === currOpen  //derived
 
   // ___________HANDLER______________
   function handleToggle() {

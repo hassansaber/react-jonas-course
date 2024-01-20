@@ -11,7 +11,6 @@ function App() {
   return <>
     <Steps />
     <Steps />
-
   </>
 }
 
@@ -22,13 +21,14 @@ function App() {
 
 function Steps() {
 
+  // state
   const [step, setStep] = useState(1)
   const [isOpen, setIsOpen] = useState(true)
 
 
 
+  // handler
   function handlePrevious() {
-
     if (step > 1) setStep(s => s - 1)
   }
   function handleNext() {
@@ -37,6 +37,7 @@ function Steps() {
 
 
 
+  // jsx
   return (
     <div>
       <button className="close" onClick={() => setIsOpen(is => !is)}>&times;</button>

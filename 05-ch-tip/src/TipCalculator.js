@@ -5,7 +5,14 @@ import Reset from "./Reset"
 
 import { useState } from 'react'
 
+
+
+
+
+
+
 const TipCalculator = () => {
+
   // __________STATE____________
   const [bill, setBill] = useState("")
   const [percentage1, setPercentage1] = useState(0)

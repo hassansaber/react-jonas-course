@@ -2,6 +2,7 @@ import { useState } from "react"
 
 
 const Counter = () => {
+  // state
   const [step, setStep] = useState(1)
   const [count, setCount] = useState(0)
 
@@ -10,7 +11,7 @@ const Counter = () => {
 
 
 
-
+  // handler
   function handleReset() {
     setCount(0)
     setStep(1)
