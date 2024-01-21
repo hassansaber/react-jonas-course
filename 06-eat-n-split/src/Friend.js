@@ -12,9 +12,9 @@ const Friend = ({ friend, OnSelection, selectedFriend }) => {
 
   // ______HANDLER_________
   function handleSelect() {
-
     OnSelection(friend)
   }
+
 
   // ________JSX__________
   return (

@@ -50,8 +50,9 @@ const App = () => {
   }
 
   function handleSelection(friend) {
-    setSelectedFriend(sF =>
-      sF?.id === friend.id ? null : friend)
+    setSelectedFriend(selectedFriend =>
+      selectedFriend?.id === friend.id ?
+        null : friend)
     setShowAddFriend(false)
 
   }
