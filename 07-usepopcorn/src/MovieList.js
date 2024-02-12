@@ -1,7 +1,7 @@
 import Movie from "./Movie"
 
 
-const MovieList = ({ movies, onSelectMovie, selectedMovie }) => {
+const MovieList = ({ movies, onSelectMovie }) => {
   return (
     <ul className="list list-movies">
       {movies?.map((movie) => (
@@ -9,7 +9,7 @@ const MovieList = ({ movies, onSelectMovie, selectedMovie }) => {
           movie={movie}
           key={movie.imdbID}
           onSelectMovie={onSelectMovie}
-          selectedMovie={selectedMovie} />
+        />
       ))}
     </ul>
   )

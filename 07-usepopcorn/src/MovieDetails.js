@@ -3,23 +3,18 @@ import StarRating from "./StarRating"
 import Loader from "./Loader"
 import ErrorMessage from "./ErrorMessage"
 import { useKey } from "./useKey"
-
-const KEY = 'a55d4b56'
-
+import { useMovieDetails } from "./useMovieDetails"
 
 
-const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatched }) => {
+const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
 
   // ____________STATE_______________
-  const [movie, setMovie] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
   const [userRating, setUserRating] = useState(0)
+
+  const { movie, isLoading, error } = useMovieDetails(selectedId)
   const isWatched = watched.map(movie => movie.imdbID).includes(selectedId)
   const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating
-
   const countRef = useRef(0)
-
   const { Title: title,
     Released: released,
     Runtime: runtime,
@@ -31,9 +26,6 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
     Director: director,
     Year: year,
   } = movie
-
-
-
 
 
   // ________________Handler___________________
@@ -56,49 +48,13 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
 
 
 
-
-
-
-
-
-
-
   // ________________Effect___________________
 
   useEffect(function () {
     if (userRating) countRef.current++
   }, [userRating])
 
-  useEffect(function () {
-    async function getMovieDetails() {
-      try {
-
-        setIsLoading(true)
-        setMovie({})
-
-        const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`)
-        if (!res.ok) throw new Error("Something went wrong while fetching data");
-
-        const data = await res.json()
-        if (data.Response === 'False') throw new Error("Movie not found");
-
-        setMovie(data)
-
-      } catch (err) {
-
-        console.log(err.message);
-        setError(err.message)
-      } finally {
-        setIsLoading(false)
-      }
-
-    }
-    getMovieDetails()
-  }, [selectedId])
-
-
-
+  // page title
   useEffect(function () {
     if (!title) return
     document.title = `Movie | ${title}`
@@ -106,13 +62,11 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched, onWatch
     return function () { document.title = 'usePopcorn' }
   }, [title])
 
-
   useKey("Escape", onCloseMovie)
 
 
   // ____________JSX_______________
   return (
-
     <div className="details">
       {isLoading && <Loader />}
       {(!isLoading && !error) &&

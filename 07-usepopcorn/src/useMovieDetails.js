@@ -2,65 +2,54 @@ import { useState, useEffect } from "react"
 
 const KEY = 'a55d4b56'
 
+export function useMovieDetails(selectedId) {
 
-export function useMovies(query) {
-
-  const [movies, setMovies] = useState([]);
+  const [movie, setMovie] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
 
   useEffect(function () {
-    // callback?.()
+
     const controller = new AbortController()
 
-    async function fetchMovies() {
+    async function getMovieDetails() {
       try {
-        // reset states
+
         setIsLoading(true)
-        setError('')
+        setMovie({})
 
         const res = await fetch(
-          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-          { signal: controller.signal }
-        )
-
+          `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`, { signal: controller.signal })
         if (!res.ok) throw new Error("Something went wrong while fetching data");
 
         const data = await res.json()
-
         if (data.Response === 'False') throw new Error("Movie not found");
 
-        setMovies(data.Search)
-        setError("")
+        setMovie(data)
 
       } catch (err) {
-
-        if (err.name !== "AbortError") {
-          setError(err.message)
+        if (err.name !== 'AbortError') {
           console.log(err.message);
+          setError(err.message)
         }
 
       } finally {
         setIsLoading(false)
       }
 
-      // reset List
-      if (query.length < 3) {
-        setError('')
-        setMovies([])
-        return
-      }
-
     }
-    // handleCloseMovie() ==> callback
-    fetchMovies()
+    getMovieDetails()
 
     // cleanup
     return function () {
       controller.abort()
     }
-  }, [query])
+  }, [selectedId])
 
-  return { movies, error, isLoading }
+
+  return { movie, isLoading, error }
 }
+
+
+

@@ -13,8 +13,7 @@ import Timer from './Timer';
 
 const initialState = {
   questions: [],
-  // loading , error , ready , active , finished
-  status: 'loading',
+  status: 'loading', // loading , error , ready , active , finished
   index: 0,
   answer: null,
   points: 0,
@@ -45,7 +44,6 @@ function reducer(state, action) {
       }
     case 'newAnswer':
       const currentQuestion = state.questions[state.index]
-
       return {
         ...state,
         answer: action.payload,
@@ -54,6 +52,7 @@ function reducer(state, action) {
             state.points + currentQuestion.points :
             state.points
       }
+
     case 'nextQuestion':
       return {
         ...state,
@@ -114,18 +113,11 @@ function App() {
 
       } catch (err) {
         dispatch({ type: 'dataFailed' })
+        console.log(err.message);
       }
     }
     getQuestions()
   }, [])
-
-
-
-
-  // ____________HANDLERS_____________
-
-
-
 
 
 
@@ -147,14 +139,15 @@ function App() {
               points={points}
               maxPossiblePoints={maxPossiblePoints}
               answer={answer} />
+
             <Question
               question={questions[index]}
               dispatch={dispatch}
               answer={answer} />
 
-
             <Footer>
               <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
+
               <NextButton
                 dispatch={dispatch}
                 answer={answer}

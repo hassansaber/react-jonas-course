@@ -30,7 +30,7 @@ const TextExpander = ({
 
 
   function handleExpand() {
-    setIsExpanded(iO => !iO)
+    setIsExpanded(iE => !iE)
   }
 
   const ButtonStyle = {
