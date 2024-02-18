@@ -45,6 +45,7 @@ function App() {
   );
 
   return (
+    // Provide Role to Child Elements
     <PostContext.Provider value={{
       posts: searchedPosts,
       onAddPost: handleAddPost,
