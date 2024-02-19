@@ -1,59 +1,21 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
+import { useEffect, useState } from "react";
+import { createRandomPost } from "./createRandomPost"
+import { usePosts, PostProvider } from "./PostContext";
 
-function createRandomPost() {
-  return {
-    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
-    body: faker.hacker.phrase(),
-  };
-}
-
-// 1- Create A Context
-const PostContext = createContext()
 
 function App() {
-  const [posts, setPosts] = useState(() =>
-    Array.from({ length: 30 }, () => createRandomPost())
-  );
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Derived state. These are the posts that will actually be displayed
-  const searchedPosts =
-    searchQuery.length > 0
-      ? posts.filter((post) =>
-        `${post.title} ${post.body}`
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      )
-      : posts;
-
-  function handleAddPost(post) {
-    setPosts((posts) => [post, ...posts]);
-  }
-
-  function handleClearPosts() {
-    setPosts([]);
-  }
-
-
 
   return (
-    // 2 - Provide Role to Child Elements
-    <PostContext.Provider value={{
-      posts: searchedPosts,
-      onAddPost: handleAddPost,
-      onClearPosts: handleClearPosts,
-      searchQuery,
-      setSearchQuery,
-    }}>
-      <section>
-        <DarkModeBtn />
+    <section>
+      <DarkModeBtn />
+
+      <PostProvider>
         <Header />
         <Main />
         <Archive />
         <Footer />
-      </section>
-    </PostContext.Provider>
+      </PostProvider>
+    </section>
   );
 }
 
@@ -82,7 +44,7 @@ function DarkModeBtn() {
 
 function Header() {
 
-  const { onClearPosts } = useContext(PostContext)
+  const { onClearPosts } = usePosts()
 
   return (
     <header>
@@ -100,7 +62,7 @@ function Header() {
 
 function SearchPosts() {
 
-  const { searchQuery, setSearchQuery } = useContext(PostContext)
+  const { searchQuery, setSearchQuery } = usePosts()
 
   return (
     <input
@@ -113,7 +75,7 @@ function SearchPosts() {
 
 function Results() {
 
-  const { posts } = useContext(PostContext)
+  const { posts } = usePosts()
 
   return <p>🚀 {posts.length} atomic posts found</p>;
 }
@@ -138,7 +100,7 @@ function Posts() {
 function FormAddPost() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const { onAddPost } = useContext(PostContext)
+  const { onAddPost } = usePosts()
 
   const handleSubmit = function (e) {
     e.preventDefault();
@@ -167,7 +129,7 @@ function FormAddPost() {
 
 function List() {
 
-  const { posts } = useContext(PostContext)
+  const { posts } = usePosts()
 
   return (
     <ul>
@@ -189,7 +151,7 @@ function Archive() {
   );
 
   const [showArchive, setShowArchive] = useState(false);
-  const { onAddPost } = useContext(PostContext)
+  const { onAddPost } = usePosts()
 
 
   return (
