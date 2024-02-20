@@ -5,6 +5,7 @@ import { useState } from "react";
 import Button from "./Button";
 import styles from "./Form.module.css";
 import BackButton from "./BackButton";
+import { useParams, useSearchParams } from "react-router-dom";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -20,6 +21,8 @@ function Form() {
   const [date, setDate] = useState(new Date());
   const [notes, setNotes] = useState("");
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams);
   return (
     <form className={styles.form}>
       <div className={styles.row}>
