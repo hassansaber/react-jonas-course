@@ -1,4 +1,5 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -7,7 +8,7 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect, useState } from "react";
+
 import { useCities } from "../contexts/CitiesContext";
 import { useGeolocation } from "../hooks/useGeolocate";
 
@@ -36,7 +37,11 @@ function Map() {
 
   useEffect(
     function () {
-      setMapPosition(geolocationPosition);
+      if (geolocationPosition)
+        setMapPosition([
+          geolocationPosition.lat,
+          geolocationPosition.lng,
+        ]);
     },
     [geolocationPosition]
   );
