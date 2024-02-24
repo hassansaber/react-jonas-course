@@ -1,3 +1,76 @@
 {
-  "cities": []
+  "cities": [
+    {
+      "cityName": "Castello de la Plana",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-24T11:29:22.027Z",
+      "notes": "ccc",
+      "position": {
+        "lat": "39.99908446483972",
+        "lng": "0.02283096313476563"
+      },
+      "id": 3
+    },
+    {
+      "cityName": "Adzaneta",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-24T11:29:30.419Z",
+      "notes": "ddd",
+      "position": {
+        "lat": "40.26695230509781",
+        "lng": "-0.13732910156250003"
+      },
+      "id": 4
+    },
+    {
+      "cityName": "Vall de Almonacid",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-24T11:29:34.611Z",
+      "notes": "eee",
+      "position": {
+        "lat": "39.89498716884207",
+        "lng": "-0.47241210937500006"
+      },
+      "id": 5
+    },
+    {
+      "cityName": "Ardentes",
+      "country": "France",
+      "emoji": "🇫🇷",
+      "date": "2024-02-24T11:29:39.427Z",
+      "notes": "fff",
+      "position": {
+        "lat": "46.73986059969267",
+        "lng": "1.77978515625"
+      },
+      "id": 6
+    },
+    {
+      "cityName": "Starnberg",
+      "country": "Germany",
+      "emoji": "🇩🇪",
+      "date": "2024-02-24T11:29:45.411Z",
+      "notes": "ggg",
+      "position": {
+        "lat": "48.004625021133904",
+        "lng": "11.40380859375"
+      },
+      "id": 7
+    },
+    {
+      "cityName": "Castello de la Plana",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2024-02-24T12:44:28.329Z",
+      "notes": "aliii",
+      "position": {
+        "lat": "40.01275930398436",
+        "lng": "-0.008926391601562502"
+      },
+      "id": 8
+    }
+  ]
 }
