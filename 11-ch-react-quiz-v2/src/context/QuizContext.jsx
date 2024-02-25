@@ -84,7 +84,7 @@ function reducer(state, action) {
 }
 
 function QuizProvider({ children }) {
-  // ____________STATES_____________
+  // ____________STATES______________
   const [
     {
       status,
