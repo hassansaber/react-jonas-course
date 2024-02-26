@@ -97,6 +97,7 @@ function CitiesProvider({ children }) {
         throw new Error(err.message);
       }
     },
+
     [currentCity.id]
   );
 
