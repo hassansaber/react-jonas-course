@@ -16,6 +16,7 @@ function Calculator({ workouts, allowSound }) {
     const sound = new Audio(clickSound);
     sound.play();
   };
+  // playSound()
 
   return (
     <>
@@ -66,13 +67,13 @@ function Calculator({ workouts, allowSound }) {
         </div>
       </form>
       <section>
-        <button onClick={() => {}}>–</button>
+        <button onClick={() => { }}>–</button>
         <p>
           {mins < 10 && '0'}
           {mins}:{seconds < 10 && '0'}
           {seconds}
         </p>
-        <button onClick={() => {}}>+</button>
+        <button onClick={() => { }}>+</button>
       </section>
     </>
   );
