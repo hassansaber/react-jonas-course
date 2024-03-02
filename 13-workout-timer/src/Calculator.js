@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import clickSound from './ClickSound.m4a';
 
@@ -13,12 +13,20 @@ function Calculator({ workouts, allowSound }) {
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
-  const playSound = useCallback(function () {
-    if (!allowSound) return;
-    const sound = new Audio(clickSound);
-    sound.play();
-  }, [allowSound])
+  // const playSound = useCallback(function () {
+  //   if (!allowSound) return;
+  //   const sound = new Audio(clickSound);
+  //   sound.play();
+  // }, [allowSound])
 
+  useEffect(function () {
+    function playSound() {
+      if (!allowSound) return;
+      const sound = new Audio(clickSound);
+      sound.play();
+    }
+    playSound()
+  }, [duration, allowSound])
 
   // problem with helper func in useEffect (playSound) :
   // func creates in renders but rerender and useEffect states won't change (duration number won't change )
@@ -27,21 +35,25 @@ function Calculator({ workouts, allowSound }) {
   // 2 - move func inside the useEffect  (we couldn't , because we also invoked it outside of useEffect (in handlers) )
   // 3 - memoize func (useCallback)
 
+  // new Problem when reactive value change (useEffect rerenders) the values back to before inc and dec
+  // solution :
+  // put each side-effect ot separate useEffect  (1 for duration 1 for playSound)
+
 
   useEffect(function () {
     setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak)
-    playSound()
+    // playSound()
 
-  }, [number, speed, sets, durationBreak, playSound])
+  }, [number, speed, sets, durationBreak])
 
   function handleInc() {
     setDuration(duration => Math.floor(duration) + 1)
-    playSound()
+    // playSound()
   }
 
   function handleDec() {
     setDuration(duration => (duration > 0 ? Math.ceil(duration) - 1 : 0))
-    playSound()
+    // playSound()
   }
 
   return (
