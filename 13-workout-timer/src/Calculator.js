@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 
 import clickSound from './ClickSound.m4a';
 
@@ -13,23 +13,35 @@ function Calculator({ workouts, allowSound }) {
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
-  const playSound = function () {
+  const playSound = useCallback(function () {
     if (!allowSound) return;
     const sound = new Audio(clickSound);
     sound.play();
-  };
-  // playSound()
+  }, [allowSound])
+
+
+  // problem with helper func in useEffect (playSound) :
+  // func creates in renders but rerender and useEffect states won't change (duration number won't change )
+  // Solutions  :  
+  // 1 - move func outside of component  (we couldn't  , because of reactive value in func (allowSound) )
+  // 2 - move func inside the useEffect  (we couldn't , because we also invoked it outside of useEffect (in handlers) )
+  // 3 - memoize func (useCallback)
+
 
   useEffect(function () {
     setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak)
-  }, [number, sets, speed, sets, durationBreak])
+    playSound()
+
+  }, [number, speed, sets, durationBreak, playSound])
 
   function handleInc() {
     setDuration(duration => Math.floor(duration) + 1)
+    playSound()
   }
 
   function handleDec() {
     setDuration(duration => (duration > 0 ? Math.ceil(duration) - 1 : 0))
+    playSound()
   }
 
   return (
