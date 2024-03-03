@@ -13,12 +13,12 @@ function Calculator({ workouts, allowSound }) {
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
-
+  // stale closure
   useEffect(function () {
     console.log(duration, sets);
     document.title = `Your ${number}-exercise workout`
   }, [duration, sets, number])
-
+  // 
 
   // const playSound = useCallback(function () {
   //   if (!allowSound) return;
