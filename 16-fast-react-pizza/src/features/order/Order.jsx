@@ -68,7 +68,7 @@ function Order() {
       <div>
         <p>
           {deliveryIn >= 0
-            ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
+            ? `Only ${deliveryIn} minutes left 😃`
             : "Order should have arrived"}
         </p>
         <p>(Estimated delivery: {formatDate(estimatedDelivery)})</p>
@@ -76,8 +76,13 @@ function Order() {
 
       <div>
         <p>Price pizza: {formatCurrency(orderPrice)}</p>
-        {priority && <p>Price priority: {formatCurrency(priorityPrice)}</p>}
-        <p>To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
+        {priority && (
+          <p>Price priority: {formatCurrency(priorityPrice)}</p>
+        )}
+        <p>
+          To pay on delivery:{" "}
+          {formatCurrency(orderPrice + priorityPrice)}
+        </p>
       </div>
     </div>
   );
