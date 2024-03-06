@@ -13,7 +13,7 @@ import AppLayout from "./ui/AppLayout";
 function App() {
   const router = createBrowserRouter([
     {
-      element: <AppLayout />,
+      element: <AppLayout />, // Layout rout : without path
       children: [
         { path: "/", element: <Home /> },
         { path: "cart", element: <Cart /> },
