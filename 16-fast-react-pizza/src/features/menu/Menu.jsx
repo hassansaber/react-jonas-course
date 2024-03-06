@@ -1,5 +1,36 @@
+import { useLoaderData } from "react-router-dom";
+import { getMenu } from "../../services/apiRestaurant";
+import MenuItem from "./MenuItem";
+
 function Menu() {
-  return <h1>Menu</h1>;
+  const menu = useLoaderData();
+
+  return (
+    <ul>
+      {menu.map((pizza) => (
+        <MenuItem key={pizza.id} pizza={pizza} />
+      ))}
+    </ul>
+  );
+}
+
+export async function loader() {
+  const menu = await getMenu();
+
+  return menu;
 }
 
 export default Menu;
+
+/*
+Data Fetching :
+render on fetch = first render then fetch
+--ex: fetch with useEffect
+render as you fetch = render and fetch start together 
+--ex: loader in ReactRouterDom
+
+loading data steps :
+1) create loader   - loader func
+2) provide loader  - loader in routeObject 
+3) provide loader to the page - useLoaderData hook
+*/

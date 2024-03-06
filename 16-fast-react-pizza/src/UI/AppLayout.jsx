@@ -5,13 +5,13 @@ import CartOverview from "../features/cart/CartOverview";
 
 function AppLayout() {
   return (
-    <>
+    <div>
       <Header />
       <main>
         <Outlet />
       </main>
       <CartOverview />
-    </>
+    </div>
   );
 }
 
