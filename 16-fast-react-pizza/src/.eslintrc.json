@@ -5,7 +5,7 @@
 /*
 config ESlint  :
  1) 3 package in dev dep
- npm i eslint vite-plugin-eslint eslint-config-react-apps -D
+ npm i eslint vite-plugin-eslint eslint-config-react-app -D
 
  2) create .eslintrc.json 
  { "extends": "react-app"}
