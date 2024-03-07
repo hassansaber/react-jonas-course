@@ -42,15 +42,11 @@ Tailwind :
       lg: from 1024px
       xl: from 1280px
       2xl: from 1536px
-    Best approuch : first build for mobile devices (
+    Best-approach : first build for mobile devices (
       all screens below 640px  width
-    )
-
-
-    
-
-
-
-
-
+    ) and then use custom breakpoints based on devices(
+        // 'tablet': '640px',@media (min-width: 640px) { ... } sm
+        // 'laptop': '1024px',@media (min-width: 1024px) { ... } lg
+        // 'desktop': '1280px',@media (min-width: 1280px) { ... }} xl
+    // )
 */
