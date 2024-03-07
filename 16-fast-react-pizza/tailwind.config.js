@@ -11,6 +11,23 @@ export default {
 }
 
 
+
+/*
+Tailwind Setup 
+1) tailwind config on Doc
+2) tailwind extension 
+3) npm install -D prettier prettier-plugin-tailwindcss
+4) config 3  based on Doc 
+ prettier.config.js  =>>> prettier.config.cjs
+  module.exports = {
+    tailwindConfig: './styles/tailwind.config.js',
+  }
+
+*/
+
+
+
+
 /*
 Tailwind : 
   *arbitrary value  :  [2rem]  
@@ -42,11 +59,17 @@ Tailwind :
       lg: from 1024px
       xl: from 1280px
       2xl: from 1536px
-    Best-approach : first build for mobile devices (
+    Best-approach :
+     first build for mobile devices (
       all screens below 640px  width
-    ) and then use custom breakpoints based on devices(
+      ) and then use custom breakpoints based on devices(
         // 'tablet': '640px',@media (min-width: 640px) { ... } sm
         // 'laptop': '1024px',@media (min-width: 1024px) { ... } lg
         // 'desktop': '1280px',@media (min-width: 1280px) { ... }} xl
-    // )
+      // )
+
+  Flex Layout:
+    flex
+    horizontal (right ot left): justify-between
+    vertical (top to bottom): items-center
 */
