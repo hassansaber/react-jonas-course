@@ -23,7 +23,7 @@ export async function loader() {
 export default Menu;
 
 /*
-Data Fetching :
+Data Fetching (GET) : 
 render on fetch = first render then fetch
 --ex: fetch with useEffect
 render as you fetch = render and fetch start together 
