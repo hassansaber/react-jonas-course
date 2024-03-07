@@ -13,7 +13,9 @@ export default {
 
 /*
 Tailwind : 
-  *arbitrary value  :  [2rem] ex: text-[2rem]*
+  *arbitrary value  :  [2rem]  
+    font size ex : text-[2rem]*
+
 
   text color : text-yellow-500 
   background color : bg-stone-800
@@ -21,7 +23,7 @@ Tailwind :
   line height : text-sm
   letter spacing : tracking-widest
   text transform uppercase : uppercase
-  
+
 
 
 
