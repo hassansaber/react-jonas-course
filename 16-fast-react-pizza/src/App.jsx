@@ -16,7 +16,8 @@ import Error from "./ui/Error";
 function App() {
   const router = createBrowserRouter([
     {
-      element: <AppLayout />, // Layout route : routeObj  without path
+      // Layout route : routeObj  without path
+      element: <AppLayout />,
       errorElement: <Error />,
       children: [
         { path: "/", element: <Home /> },
@@ -25,6 +26,7 @@ function App() {
           path: "order/new",
           element: <CreateOrder />,
           action: createOrderAction,
+          errorElement: <Error />,
         },
         {
           path: "order/:orderId",
