@@ -72,4 +72,19 @@ Tailwind :
     flex
     horizontal (right ot left): justify-between
     vertical (top to bottom): items-center
-*/
+
+  Grid Layout:
+    *useful for overall page layout*
+    grid
+    grid-cols-3
+    grid-rows-[auto_1fr_auto]
+
+    for child (page content)(
+      overflow-scroll  //make main content scroll
+      max-w-3xl //free sides of content in big screens
+      mx-auto //set content at middle
+      )
+
+
+
+    */
