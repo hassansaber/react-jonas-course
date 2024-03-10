@@ -78,7 +78,6 @@ Tailwind :
     grid
     grid-cols-3
     grid-rows-[auto_1fr_auto]
-
     for child (page content)(
       overflow-scroll  //make main content scroll
       max-w-3xl //free sides of content in big screens
@@ -87,4 +86,4 @@ Tailwind :
 
 
 
-    */
+*/
