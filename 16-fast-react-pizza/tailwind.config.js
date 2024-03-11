@@ -84,6 +84,38 @@ Tailwind :
       mx-auto //set content at middle
       )
 
+  Button States & Transitions:
+    States: hover , active , disabled ...
+    
+    ex : (
+      **color**
+        bg-yellow-400
+        text-stone-800
+      **text**
+        font-semibold 
+        tracking-wide
+        uppercase
+      **spacing**
+      inline-block
+        px-4
+        py-3
+        rounded-full
+      **animation**
+        transition-colors //all => for all css properties
+        duration-300
+      **states**
+        hover:bg-yellow-300
+        focus:bg-yellow-300
+        focus:outline-none //disable default style 
+        focus:ring // new style (for tailwind)
+        focus:ring-yellow-300
+        focus:ring-offset-2 // space between element and newStyle(ring)
+        disabled:cursor-not-allowed
+    )
+
+
+
+
 
 
 */
