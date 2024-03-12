@@ -124,6 +124,10 @@ Tailwind :
     *do not set margins for each input*
     accent-yellow-400 //background of checkbox
 
+  Reuse Style with apply:
+      *DO NOT use it as possible*
+      because it is not what tailwind gives us, it goes back to css
+    layer - apply (inside index.css)
 
 
 */
