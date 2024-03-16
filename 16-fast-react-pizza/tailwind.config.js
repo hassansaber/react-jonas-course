@@ -5,7 +5,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: 'Roboto Mono, monospace'
+    }
+
+    ,
+    extend: {
+      fontSize: {
+        huge: ['80rem', { lineHeight: '1' }]
+      },
+      height: {
+        screen: '100dvh' //fixes issue in mobile screens
+      }
+    },
   },
   plugins: [],
 }
@@ -136,6 +148,11 @@ Tailwind :
     **use colors outside components in index.css files :**
       theme(color.stone.800)  //stone-800
 
+  Configuration:
+    extend: add to defaults
+    outside extend : ex(sans) overwrite all defaults
+
+    
   
 
 */
