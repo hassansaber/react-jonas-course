@@ -129,5 +129,13 @@ Tailwind :
       because it is not what tailwind gives us, it goes back to css
     layer - apply (inside index.css)
 
+  Absolute Positioning:
+    ex Loader : add all classes to loader's parent
+    absolute
+    inset-0  //top , bottom , left , right === 0
+    **use colors outside components in index.css files :**
+      theme(color.stone.800)  //stone-800
+
+  
 
 */
