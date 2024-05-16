@@ -19,7 +19,7 @@ const cartSlice = createSlice({
   reducers: {
     addItem(state, action) {
       // newItem = payload
-      state.cart = state.cart.push(action.payload)
+      state.cart.push(action.payload)
     },
     deleteItem(state, action) {
       // pizzaId = payload
@@ -27,6 +27,7 @@ const cartSlice = createSlice({
         item => item.pizzaId !== action.payload)
     },
     increaseItemQuantity(state, action) {
+      // pizzaId = payload
       const item = state.cart.find(
         item => item.pizzaId === action.payload)
 
@@ -35,6 +36,7 @@ const cartSlice = createSlice({
 
     },
     decreaseItemQuantity(state, action) {
+      // pizzaId = payload
       const item = state.cart.find(
         item => item.pizzaId === action.payload)
 
