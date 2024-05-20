@@ -56,7 +56,7 @@ function CreateOrder() {
         >
           <label className="sm:basis-40">First Name</label>
           <input
-            defaultValue={username} //new
+            defaultValue={username} //newThing = can be changed
             type="text"
             name="customer"
             required

@@ -42,6 +42,7 @@ const userSlice = createSlice({
   }
 })
 
+// access action creators
 export const { updateName } = userSlice.actions
 
 export default userSlice.reducer
