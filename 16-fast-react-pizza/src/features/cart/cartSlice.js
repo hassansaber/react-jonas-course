@@ -72,4 +72,9 @@ export const getTotalCartQuantity = (state) =>
     sum + item.quantity, 0)
 
 export const getCart = (state) => state.cart.cart
+
+export const getCurrentQuantity = (id) => (state) =>
+  state.cart.cart.find(item => id === item.pizzaId)?.
+    quantity ?? 0
+
 // reslect lib = organize selectors
