@@ -42,6 +42,9 @@ const cartSlice = createSlice({
 
       item.quantity--
       item.totalPrice = item.quantity * item.unitPrice
+
+      if (item.quantity === 0)
+        cartSlice.caseReducers.deleteItem(state, action)
     },
     clearCart(state) {
       state.cart = []
@@ -74,7 +77,7 @@ export const getTotalCartQuantity = (state) =>
 export const getCart = (state) => state.cart.cart
 
 export const getCurrentQuantity = (id) => (state) =>
-  state.cart.cart.find(item => id === item.pizzaId)?.
-    quantity ?? 0
+  state.cart.cart.find(item =>
+    id === item.pizzaId)?.quantity ?? 0
 
 // reslect lib = organize selectors
