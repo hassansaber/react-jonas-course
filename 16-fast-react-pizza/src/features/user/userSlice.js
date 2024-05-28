@@ -50,7 +50,7 @@ const userSlice = createSlice({
   // async reducer
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAddress.pending, (state, action) => {
+      .addCase(fetchAddress.pending, (state, action) => { //3 action type for async: pending,fulfilled,rejected
         state.status = 'loading'
       })
       .addCase(fetchAddress.fulfilled, (state, action) => {
@@ -58,7 +58,7 @@ const userSlice = createSlice({
         state.address = action.payload.address
         state.status = 'idle'
       })
-      .addCase(fetchAddress, (state, action) => {
+      .addCase(fetchAddress.rejected, (state, action) => {
         state.status = 'error'
         state.error = action.error.message
       })
