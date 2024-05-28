@@ -43,7 +43,7 @@ const cartSlice = createSlice({
       item.quantity--
       item.totalPrice = item.quantity * item.unitPrice
 
-      if (item.quantity === 0)
+      if (item.quantity === 0) //caseReducers :  use another reducer inside a reducer
         cartSlice.caseReducers.deleteItem(state, action)
     },
     clearCart(state) {
