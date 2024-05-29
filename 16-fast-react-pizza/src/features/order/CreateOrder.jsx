@@ -173,8 +173,6 @@ export async function action({ request }) {
     cart: JSON.parse(data.cart),
   };
 
-  console.log(order);
-
   const newOrder = await createOrder(order);
 
   // directly import store,because useDispatch only works inside components,
