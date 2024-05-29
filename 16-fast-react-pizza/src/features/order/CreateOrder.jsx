@@ -17,27 +17,32 @@ const isValidPhone = (str) =>
 
 function CreateOrder() {
   const navigation = useNavigation();
+  const formErrors = useActionData();
   const dispatch = useDispatch();
-  const isSubmitting = navigation.state === 'submitting';
+  const [withPriority, setWithPriority] = useState(false);
+
+  const cart = useSelector(getCart);
+  const {
+    username,
+    address,
+    status: addressStatus,
+    error: addressError,
+    position,
+  } = useSelector((state) => state.user);
 
   // Error handling in action-form 3
-  const formErrors = useActionData();
-
-  const [withPriority, setWithPriority] = useState(false);
-  const cart = useSelector(getCart);
-  const username = useSelector((state) => state.user.username);
+  const isSubmitting = navigation.state === 'submitting';
 
   const totalCartPrice = useSelector(getTotalCartPrice);
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
   const totalPrice = priorityPrice + totalCartPrice;
+  const isLoadingAddress = addressStatus === 'loading';
 
   if (cart.length === 0) return <EmptyCart />;
 
   return (
     <div className="px-4 py-6">
       <h2 className="mb-8 text-xl font-semibold">Ready to order? Let's go!</h2>
-
-      <button onClick={() => dispatch(fetchAddress())}>Get Position</button>
 
       {/* <Form method="POST" action="order/new"> //default */}
       <Form method="POST">
@@ -72,8 +77,8 @@ function CreateOrder() {
         </div>
 
         <div
-          className="mb-5 flex flex-col gap-2 
-          sm:flex-row sm:items-center"
+          className="relative mb-5 flex flex-col 
+          gap-2 sm:flex-row sm:items-center"
         >
           <label className="sm:basis-40">Address</label>
           <div className="grow">
@@ -82,8 +87,33 @@ function CreateOrder() {
               name="address"
               required
               className="input w-full"
+              defaultValue={address}
+              disabled={isLoadingAddress}
             />
+            {addressStatus === 'error' && (
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                {addressError}
+              </p>
+            )}
           </div>
+
+          <span
+            className="absolute right-[3px] top-[3px]
+             z-50 md:right-[5px] md:top-[5px]"
+          >
+            {!position.latitude && !position.longitude && (
+              <Button
+                disabled={isLoadingAddress}
+                type="small"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(fetchAddress());
+                }}
+              >
+                Get Position
+              </Button>
+            )}
+          </span>
         </div>
 
         <div className="mb-12 flex items-center gap-2">
@@ -105,9 +135,18 @@ function CreateOrder() {
 
         {/* send data from component to action without filled in form : */}
         <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+        <input
+          type="hidden"
+          name="position"
+          value={
+            position.latitude && position.longitude
+              ? `${position.latitude},${position.longitude}`
+              : ''
+          }
+        />
 
         <div>
-          <Button type="primary" disabled={isSubmitting}>
+          <Button type="primary" disabled={isSubmitting || isLoadingAddress}>
             {isSubmitting
               ? 'Placing Order...'
               : `Order now from ${formatCurrency(totalPrice)}`}
@@ -133,6 +172,8 @@ export async function action({ request }) {
     priority: data.priority === 'true',
     cart: JSON.parse(data.cart),
   };
+
+  console.log(order);
 
   const newOrder = await createOrder(order);
 
