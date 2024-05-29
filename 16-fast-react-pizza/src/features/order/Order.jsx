@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 function Order() {
   const order = useLoaderData();
 
-  // Fetch and mutate data without causing navigation (change route)
+  // Fetch  data (GET)(READ) without causing navigation (change route)
   // It gets data from loader on the page that we need data from
   const fetcher = useFetcher();
   useEffect(
