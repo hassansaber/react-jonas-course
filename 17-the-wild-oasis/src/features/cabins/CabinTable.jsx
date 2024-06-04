@@ -35,8 +35,8 @@ function CabinTable() {
     data: cabins,
     error,
   } = useQuery({
-    queryKey: ["cabin"],
-    queryFn: getCabins,
+    queryKey: ["cabins"], //unique name for cache
+    queryFn: getCabins, //fn should return promise
   });
 
   if (isLoading) return <Spinner />;
