@@ -25,7 +25,8 @@ function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000, // amount of time that the data in a cache will stay valid
+        // staleTime: 60 * 1000,
+        staleTime: 0, // amount of time that the data in a cache will stay valid
       },
     },
   });
