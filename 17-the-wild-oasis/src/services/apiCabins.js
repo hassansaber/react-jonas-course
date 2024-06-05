@@ -54,8 +54,13 @@ export async function createCabin(newCabin) {
     .from('cabin-images')
     .upload(imageName, newCabin.image)  //insert the file (newCabin.image) not path (imagePath)
 
-  // 3.delete the cabin if there was an error uploading image
   if (uploadError) {
+    // 2.5.delete the cabin if there was an error uploading image
+    await supabase
+      .from('cabins')
+      .delete()
+      .eq('id', data.id)
+
     console.error(uploadError)
     throw new Error('Cabin image could not be uploaded and the cabin was not created')
   }
