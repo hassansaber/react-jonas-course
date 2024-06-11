@@ -1,6 +1,7 @@
 import supabase, { supabaseUrl } from './supabase'
 
 
+
 export async function getCabins() {
 
   const { data, error } = await supabase
@@ -30,17 +31,29 @@ export async function deleteCabin(id) {
   return data
 }
 
-export async function createCabin(newCabin) {
+export async function createAndEditCabin({ newCabin, id }) {
+
+  let query = await supabase
+    .from('cabins')
 
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll('/', '')
   const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
 
-  // 1.create cabin
-  const { data, error } = await supabase
-    .from('cabins')
+  // CREATE
+  if (!id) query = query
     .insert([{ ...newCabin, image: imagePath }])
     .select()
+
+  // UPDATE
+  if (id) query = query.update({ ...newCabin, image: imagePath })
+    .eq('some_column', 'someValue')
+
+
+
+
+  const { data, error } = query.select().single()
+
 
   if (error) {
     console.error(error)

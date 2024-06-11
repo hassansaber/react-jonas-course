@@ -5,6 +5,8 @@ import { deleteCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 
 import Button from "../../ui/Button";
+import { useState } from "react";
+import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -46,11 +48,14 @@ const Discount = styled.div`
 `;
 
 const CabinRow = ({ cabin }) => {
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
   const { id, name, maxCapacity, regularPrice, discount, image } =
     cabin;
 
   const queryClient = useQueryClient();
-  const { isLoading: isDeleted, mutate } = useMutation({
+
+  // DELETE CABIN MUTATION
+  const { isLoading: isDeleting, mutate } = useMutation({
     mutationFn: deleteCabin,
 
     onSuccess: () => {
@@ -66,22 +71,40 @@ const CabinRow = ({ cabin }) => {
   });
 
   return (
-    <TableRow role="row">
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
+    <>
+      <TableRow role="row">
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>Fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{formatCurrency(discount)}</Discount>
 
-      <Button
-        variation="secondary"
-        size="small"
-        onClick={() => mutate(id)}
-        disabled={isDeleted}
-      >
-        Delete
-      </Button>
-    </TableRow>
+        <div>
+          <Button
+            variation="secondary"
+            size="small"
+            onClick={() => setIsEditFormOpen((open) => !open)}
+            disabled={isDeleting}
+          >
+            Edit
+          </Button>
+          <Button
+            variation="secondary"
+            size="small"
+            onClick={() => mutate(id)}
+            disabled={isDeleting}
+          >
+            Delete
+          </Button>
+        </div>
+      </TableRow>
+      {isEditFormOpen && (
+        <CreateCabinForm
+          cabinToEdit={cabin}
+          onShowEditForm={setIsEditFormOpen}
+        />
+      )}
+    </>
   );
 };
 

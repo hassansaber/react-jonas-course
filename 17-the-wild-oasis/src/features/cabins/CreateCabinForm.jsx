@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../../services/apiCabins";
+import { createAndEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 
 import Input from "../../ui/Input";
@@ -10,18 +10,24 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm() {
+function CreateCabinForm({ cabinToEdit = {} }) {
+  const { id: editId, ...editValues } = cabinToEdit;
+
+  const isEditSession = Boolean(editId);
+
   const {
     register,
     handleSubmit,
     reset,
     getValues,
     formState: { errors },
-  } = useForm();
-  const queryClient = useQueryClient();
+  } = useForm({
+    defaultValues: isEditSession ? editValues : false,
+  });
 
+  const queryClient = useQueryClient();
   const { isLoading: isCreating, mutate } = useMutation({
-    mutationFn: createCabin,
+    mutationFn: createAndEditCabin,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
