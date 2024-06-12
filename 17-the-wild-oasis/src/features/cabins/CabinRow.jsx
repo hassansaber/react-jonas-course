@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 import { formatCurrency } from "../../utils/helpers";
 import { useDeleteCabin } from "./useDeleteCabin";
 
-import Button from "../../ui/Button";
 import CreateCabinForm from "./CreateCabinForm";
+import { useCreateCabin } from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -48,10 +49,29 @@ const Discount = styled.div`
 
 const CabinRow = ({ cabin }) => {
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
-  const { id, name, maxCapacity, regularPrice, discount, image } =
-    cabin;
+  const {
+    id,
+    name,
+    maxCapacity,
+    regularPrice,
+    discount,
+    image,
+    description,
+  } = cabin;
 
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
+
+  function handleDuplicate() {
+    createCabin({
+      name: `copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
 
   return (
     <>
@@ -66,22 +86,21 @@ const CabinRow = ({ cabin }) => {
           <span>&mdash;</span>
         )}
         <div>
-          <Button
-            variation="secondary"
-            size="small"
+          <button onClick={handleDuplicate} disabled={isCreating}>
+            <HiSquare2Stack />
+          </button>
+          <button
             onClick={() => setIsEditFormOpen((open) => !open)}
             disabled={isDeleting}
           >
-            Edit
-          </Button>
-          <Button
-            variation="secondary"
-            size="small"
+            <HiPencil />
+          </button>
+          <button
             onClick={() => deleteCabin(id)}
             disabled={isDeleting}
           >
-            Delete
-          </Button>
+            <HiTrash />
+          </button>
         </div>
       </TableRow>
       {isEditFormOpen && <CreateCabinForm cabinToEdit={cabin} />}
