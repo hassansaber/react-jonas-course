@@ -22,7 +22,7 @@ function UpdateSettingsForm() {
   function handleBlur(e, field) {
     const { value } = e.target;
 
-    updateSetting({ [field]: value });
+    updateSetting({ [field]: value }); //use field's value as object key => [field]
   }
 
   if (isLoading) return <Spinner />;
