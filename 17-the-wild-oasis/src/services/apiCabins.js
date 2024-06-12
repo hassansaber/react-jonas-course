@@ -29,7 +29,7 @@ export async function deleteCabin(id) {
     throw new Error('Cabin could not be deleted')
   }
 
-  // // 2.UPLOAD image to bucket in storage 
+  // // 2.DELETE image from bucket in storage 
   // const { error: uploadError } = await supabase
   //   .storage
   //   .from('cabin-images')
@@ -46,16 +46,12 @@ export async function deleteCabin(id) {
 
 // PUT , POST
 export async function createAndEditCabin(newCabin, id) {
-  console.log('newCabin', newCabin);
-  console.log('id', id);
-
 
   // 1.
   let query = supabase
     .from('cabins')
 
-  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl)
-  console.log(hasImagePath);
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl) // for 2 ways in edit
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll('/', '')
   const imagePath = hasImagePath ? newCabin.image : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
