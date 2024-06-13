@@ -15,6 +15,7 @@ const companies = Array.from({ length: 15 }, () => {
     phrase: faker.company.catchPhrase(),
   };
 });
+//--------------------------------------------------
 
 function ProductItem({ product }) {
   return (
@@ -25,6 +26,7 @@ function ProductItem({ product }) {
     </li>
   );
 }
+//--------------------------------------------------
 
 function CompanyItem({ company, defaultVisibility }) {
   const [isVisible, setIsVisisble] = useState(defaultVisibility);
@@ -45,7 +47,9 @@ function CompanyItem({ company, defaultVisibility }) {
   );
 }
 
-function List({ title, items }) {
+//--------------------------------------------------
+
+function List({ title, items, render }) {
   const [isOpen, setIsOpen] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -64,16 +68,7 @@ function List({ title, items }) {
           {isOpen ? <span>&or;</span> : <span>&and;</span>}
         </button>
       </div>
-      {isOpen && (
-        <ul className="list">
-          {displayItems.map((product) => (
-            <ProductItem
-              key={product.productName}
-              product={product}
-            />
-          ))}
-        </ul>
-      )}
+      {isOpen && <ul className="list">{displayItems.map(render)}</ul>}
 
       <button
         onClick={() => setIsCollapsed((isCollapsed) => !isCollapsed)}
@@ -83,6 +78,10 @@ function List({ title, items }) {
     </div>
   );
 }
+//--------------------------------------------------
+// 1 custom Hooks  : NOT useful => we can't share only logic  => ex: components are not same
+// 2 children prop : NOT useful => we can't share only UI     => ex: displayItems
+// can't combine those 2 => SO  == The Render Props Pattern ==
 
 export default function App() {
   return (
@@ -90,11 +89,34 @@ export default function App() {
       <h1>Render Props Demo</h1>
 
       <div className="col-2">
-        <List title="Products" items={products} />
+        <List
+          title="Products"
+          items={products}
+          render={(product) => (
+            <ProductItem
+              key={product.productName}
+              product={product}
+            />
+          )}
+        />
+
+        <List
+          title="Companies"
+          items={companies}
+          render={(company) => (
+            <CompanyItem
+              key={company.companyName}
+              company={company}
+              defaultVisibility={false}
+            />
+          )}
+        />
       </div>
     </div>
   );
 }
+
+//--------------------------------------------------
 
 // LATER: Let's say we got this component from a 3rd-party library, and can't change it. But we still want to add the 2 toggle functionalities to it
 function ProductList({ title, items }) {
