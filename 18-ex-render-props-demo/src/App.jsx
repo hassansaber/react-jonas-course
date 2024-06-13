@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { faker } from "@faker-js/faker";
+import withToggles from "./HOC";
 
 const products = Array.from({ length: 20 }, () => {
   return {
@@ -78,11 +79,29 @@ function List({ title, items, render }) {
     </div>
   );
 }
+
+//--------------------------------------------------
+
+// LATER: Let's say we got this component from a
+// 3rd-party library, and can't change it. But we still
+// want to add the 2 toggle functionalities to it
+function ProductList({ title, items }) {
+  return (
+    <ul className="list">
+      {items.map((product) => (
+        <ProductItem key={product.productName} product={product} />
+      ))}
+    </ul>
+  );
+}
+
 //--------------------------------------------------
 // 1 custom Hooks  : NOT useful => we can't share only logic  => ex: components are not same
 // 2 children prop : NOT useful => we can't share only UI     => ex: displayItems
 // can't combine those 2 => SO  == The Render Props Pattern ==
 
+//HOC
+const ProductListWithToggle = withToggles(ProductList);
 export default function App() {
   return (
     <div>
@@ -112,19 +131,14 @@ export default function App() {
           )}
         />
       </div>
+      <br />
+      <div className="col-2">
+        <ProductListWithToggle
+          title="Products with HOC"
+          items={products}
+        />
+        <ProductList title="Products with HOC" items={products} />
+      </div>
     </div>
-  );
-}
-
-//--------------------------------------------------
-
-// LATER: Let's say we got this component from a 3rd-party library, and can't change it. But we still want to add the 2 toggle functionalities to it
-function ProductList({ title, items }) {
-  return (
-    <ul className="list">
-      {items.map((product) => (
-        <ProductItem key={product.productName} product={product} />
-      ))}
-    </ul>
   );
 }
