@@ -94,6 +94,7 @@ const CabinRow = ({ cabin }) => {
               <Menus.List id={cabin.id}>
                 <Menus.Button
                   onClick={handleDuplicate}
+                  disabled={isCreating}
                   icon={<HiSquare2Stack />}
                 >
                   Duplicate
