@@ -10,7 +10,9 @@ const StyledFilter = styled.div`
   gap: 0.4rem;
 `;
 
-const FilterButton = styled.button`
+const FilterButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== "active",
+})`
   background-color: var(--color-grey-0);
   border: none;
 
@@ -37,8 +39,7 @@ const FilterButton = styled.button`
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const currentValue =
-    searchParams.get(filterField) || options.at(0).value;
+  const currentValue = searchParams.get(filterField) || options.at(0).value;
 
   function handleClick(value) {
     searchParams.set(filterField, value);

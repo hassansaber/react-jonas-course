@@ -15,6 +15,14 @@ export function useMovies(query) {
     const controller = new AbortController()
 
     async function fetchMovies() {
+
+      // reset List
+      if (query.length < 3) {
+        setError('')
+        setMovies([])
+        return
+      }
+
       try {
         // reset states
         setIsLoading(true)
@@ -45,12 +53,6 @@ export function useMovies(query) {
         setIsLoading(false)
       }
 
-      // reset List
-      if (query.length < 3) {
-        setError('')
-        setMovies([])
-        return
-      }
 
     }
     // handleCloseMovie() ==> callback

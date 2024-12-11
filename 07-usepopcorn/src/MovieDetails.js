@@ -14,7 +14,7 @@ const MovieDetails = ({ selectedId, onCloseMovie, onAddWatched, watched }) => {
   const { movie, isLoading, error } = useMovieDetails(selectedId)
   const isWatched = watched.map(movie => movie.imdbID).includes(selectedId)
   const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating
-  const countRef = useRef(0)
+  const countRef = useRef(0) // stored between rerenders
   const { Title: title,
     Released: released,
     Runtime: runtime,

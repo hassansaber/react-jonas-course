@@ -7,7 +7,7 @@ const Item = ({ faq, num, currOpen, onOpen }) => {
 
   // ___________HANDLER______________
   function handleToggle() {
-    onOpen(isOpen ? "null" : num)
+    onOpen(isOpen ? null : num)
   }
 
   // ___________JSX______________
