@@ -18,14 +18,17 @@ export function useBookings() {
     direction: sortByValue.split("-")[1],
   };
 
+  // PAGINATION
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
   const {
     isLoading,
-    data: bookings,
+    data: { data: bookings, count } = {},
     error,
   } = useQuery({
-    queryKey: ["bookings", filter, sortBy], //unique name for cache
-    queryFn: () => getBookings({ filter, sortBy }), //fn should return promise
+    queryKey: ["bookings", filter, sortBy, page], //unique name for cache
+    queryFn: () => getBookings({ filter, sortBy, page }), //fn should return promise
   });
 
-  return { isLoading, bookings, error };
+  return { isLoading, bookings, error, count };
 }
