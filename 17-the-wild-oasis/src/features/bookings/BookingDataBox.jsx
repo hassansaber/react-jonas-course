@@ -68,7 +68,9 @@ const Guest = styled.div`
   }
 `;
 
-const Price = styled.div`
+const Price = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isPaid",
+})`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,10 +78,11 @@ const Price = styled.div`
   border-radius: var(--border-radius-sm);
   margin-top: 2.4rem;
 
-  background-color: ${(props) =>
-    props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
-  color: ${(props) =>
-    props.isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+  background-color: ${(
+    { isPaid } // Access isPaid from props
+  ) => (isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)")};
+  color: ${({ isPaid }) =>
+    isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
 
   & p:last-child {
     text-transform: uppercase;

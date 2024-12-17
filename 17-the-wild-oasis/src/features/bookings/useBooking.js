@@ -6,7 +6,7 @@ export function useBooking() {
   const { bookingId } = useParams();
 
   const { isLoading, data: booking } = useQuery({
-    queryKey: ["booking"], //unique name for cache
+    queryKey: ["booking", bookingId], //unique name for cache
     queryFn: () => getBooking(bookingId), //fn should return promise
   });
 
