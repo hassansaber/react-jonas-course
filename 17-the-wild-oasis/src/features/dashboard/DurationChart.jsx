@@ -149,8 +149,6 @@ function DurationChart({ confirmedStays }) {
     ? prepareData(startDataDark, confirmedStays)
     : prepareData(startDataLight, confirmedStays);
 
-  console.log(data);
-
   return (
     <ChartBox>
       <Heading as="h2">Stay Duration Summary</Heading>
