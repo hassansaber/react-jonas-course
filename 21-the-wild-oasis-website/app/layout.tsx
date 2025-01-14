@@ -1,6 +1,12 @@
 import Navigation from "@/app/_components/Navigation";
 import Logo from "@/app/_components/Logo";
 import "@/app/_styles/globals.css";
+import { Josefin_Sans } from "next/font/google";
+
+const Josefin = Josefin_Sans({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   title: {
@@ -18,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className=" min-h-screen">
+      <body className={`min-h-screen ${Josefin.className}`}>
         <header>
           <Logo />
           <Navigation />
