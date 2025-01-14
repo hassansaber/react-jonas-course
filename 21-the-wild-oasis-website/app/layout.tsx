@@ -1,5 +1,6 @@
 import Navigation from "@/app/_components/Navigation";
-import Logo from "./_components/Logo";
+import Logo from "@/app/_components/Logo";
+import "@/app/_styles/globals.css";
 
 export const metadata = {
   title: "The Wild Oasis",
@@ -13,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className=" min-h-screen">
         <header>
           <Logo />
           <Navigation />
