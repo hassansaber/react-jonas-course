@@ -5,11 +5,6 @@ export default function Navigation() {
     <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
         <li>
-          <Link href="/" className="hover:text-accent-400 transition-colors">
-            Home
-          </Link>
-        </li>
-        <li>
           <Link
             href="/cabins"
             className="hover:text-accent-400 transition-colors"
