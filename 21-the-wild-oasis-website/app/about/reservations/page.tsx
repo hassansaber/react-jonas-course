@@ -1,8 +1,24 @@
-import ReservationCard from "./ReservationCard";
+import ReservationCard from "@/app/_components/ReservationCard";
+
+export type BookingType = {
+  id: number;
+  guestId: number;
+  startDate: string;
+  endDate: string;
+  numNights: number;
+  totalPrice: number;
+  numGuests: number;
+  status: string;
+  created_at: string;
+  cabins: {
+    name: string;
+    image: string;
+  };
+};
 
 export default function Page() {
   // CHANGE
-  const bookings = [];
+  const bookings: BookingType[] = [];
 
   return (
     <div>
