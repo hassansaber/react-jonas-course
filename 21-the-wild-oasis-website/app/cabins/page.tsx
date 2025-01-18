@@ -1,5 +1,6 @@
 import CabinCard from "@/app/_components/CabinCard";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
 export const metadata = {
   title: "Cabins",
 };
