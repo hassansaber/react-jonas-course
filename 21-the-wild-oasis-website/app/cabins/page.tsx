@@ -1,18 +1,8 @@
 import CabinCard from "@/app/_components/CabinCard";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { CabinType } from "../_lib/types";
 
 export const metadata = {
   title: "Cabins",
-};
-
-export type CabinType = {
-  id: number;
-  name: string;
-  maxCapacity: number;
-  regularPrice: number;
-  discount: number;
-  description: string;
-  image: StaticImport | string;
 };
 
 export default function Page() {
